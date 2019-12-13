@@ -3,6 +3,8 @@ import AccountService from '../src/account-service';
 import Clock from '../src/clock';
 import Console from '../src/console';
 import TransactionRepository from '../src/transaction-repository';
+import TransactionPrinterService from '../src/transaction-printer';
+import Formatter from '../src/formatter';
 
 describe('account service', () => {
   const POSITIVE_AMOUNT: number = 100;
@@ -16,7 +18,9 @@ describe('account service', () => {
 
   let clock: Clock;
   let transactionRepository: TransactionRepository;
+  let transactionPrinter: TransactionPrinterService;
   let console: Console;
+  let formatter: Formatter;
   let accountService: AccountService;
 
   beforeEach(() => {
@@ -29,7 +33,9 @@ describe('account service', () => {
 
     console = { printLine: jest.fn() };
 
-    accountService = new AccountService(transactionRepository, clock, console);
+    formatter = new Formatter();
+    transactionPrinter = new TransactionPrinterService(console, formatter);
+    accountService = new AccountService(transactionRepository, clock, transactionPrinter);
   });
 
   it('should deposit ammount into the account', () => {
