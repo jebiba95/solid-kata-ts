@@ -11,7 +11,7 @@ describe('filling station', () => {
 
     fillingStation.refuel(car);
 
-    expect(car.getFuelTankLevel()).toEqual(FULL);
+    expect(car.getEnergyLevel()).toEqual(FULL);
   });
 
   it('should not fail refueling an electric car', () => {
@@ -25,7 +25,7 @@ describe('filling station', () => {
 
     fillingStation.charge(car);
 
-    expect(car.getBatteryLevel()).toEqual(FULL);
+    expect(car.getEnergyLevel()).toEqual(FULL);
   });
 
   it('should not fail recharging a petrol car', () => {

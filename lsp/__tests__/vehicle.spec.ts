@@ -20,6 +20,6 @@ describe('vehicle', () => {
 });
 
 class TestableVehicle extends Vehicle {
-  fillUpWithFuel(): void {}
-  chargeBattery(): void {}
+  fill(): void {}
+  getEnergyLevel(): void {}
 }
