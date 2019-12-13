@@ -4,14 +4,17 @@ import MonthDay from './month-day';
 import Employee from './employee';
 import Email from './email';
 import EmailSender from './email-sender';
+import { Sender } from './sender';
 
 class BirthdayGreeter {
   private employeeRepository: EmployeeRepository;
   private clock: Clock;
+  private sender: Sender;
 
-  constructor(employeeRepository: EmployeeRepository, clock: Clock) {
+  constructor(employeeRepository: EmployeeRepository, clock: Clock, sender: Sender) {
     this.employeeRepository = employeeRepository;
     this.clock = clock;
+    this.sender = sender;
   }
 
   public sendGreetings(): void {
@@ -19,7 +22,7 @@ class BirthdayGreeter {
     this.employeeRepository
       .findEmployeesBornOn(today)
       .map(employee => this.emailFor(employee))
-      .forEach(email => new EmailSender().send(email));
+      .forEach(email => this.sender.send(email));
   }
 
   private emailFor(employee: Employee): Email {
